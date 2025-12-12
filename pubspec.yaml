@@ -1,0 +1,28 @@
+name: ecopatrol
+description: EcoPatrol - Aplikasi Pemantauan Lingkungan & Sampah Liar
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  flutter_riverpod: ^2.4.0
+  sqflite: ^2.2.8+1
+  path_provider: ^2.0.15
+  path: ^1.8.3
+  shared_preferences: ^2.1.1
+  image_picker: ^0.8.7+5
+  location: ^4.4.0
+  intl: ^0.18.0
+  sqflite_common_ffi: ^2.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
