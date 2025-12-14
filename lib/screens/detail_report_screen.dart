@@ -5,8 +5,10 @@ import '../models/report_model.dart';
 import '../providers/report_provider.dart';
 import 'edit_report_screen.dart';
 
+// Halaman detail laporan
 class DetailReportScreen extends ConsumerWidget {
   final ReportModel report;
+    // Report dikirim dari dashboard (single source of truth)
   const DetailReportScreen({Key? key, required this.report}) : super(key: key);
 
   @override
@@ -18,12 +20,17 @@ class DetailReportScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            //menampilkan foto laporan awal
             if (report.imagePath.isNotEmpty) Image.file(File(report.imagePath), width: double.infinity, fit: BoxFit.cover),
             const SizedBox(height: 8),
+
+            // Judul laporan, deskripsi, lokasi
             Text(report.title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
+            // Deskripsi laporan 
             Text(report.description),
             const SizedBox(height: 6),
+            // Informasi lokasi jika tersedia
             if (report.latitude != null) Text('Lokasi: ${report.latitude}, ${report.longitude}'),
             const SizedBox(height: 12),
             if (report.doneImagePath != null && report.doneImagePath!.isNotEmpty) ...[
@@ -53,8 +60,10 @@ class DetailReportScreen extends ConsumerWidget {
                 await ref.read(reportListProvider.notifier).load();
               }, child: const Text('Tandai Selesai')),
               const SizedBox(width: 8),
+              // Tombol tandai laporan sebagai selesai
               ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.red), onPressed: () async {
                 if (report.id != null) {
+                  // Reload dashboard setelah penghapusan
                   await ref.read(reportListProvider.notifier).deleteReport(report.id!);
                   Navigator.pop(context);
                 }
