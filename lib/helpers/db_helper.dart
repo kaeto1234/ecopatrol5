@@ -2,6 +2,8 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../models/report_model.dart';
 
+// DBHelper menggunakan Singleton Pattern
+// Tujuannya agar hanya ada satu koneksi database
 class DBHelper {
   static final DBHelper _instance = DBHelper._internal();
   factory DBHelper() => _instance;
@@ -15,6 +17,8 @@ class DBHelper {
     return _db!;
   }
 
+  // Getter database
+  // Jika database belum ada, maka akan diinisialisasi
   Future<Database> _initDb() async {
     final databasesPath = await getDatabasesPath();
     final path = join(databasesPath, 'ecopatrol.db');
@@ -40,18 +44,20 @@ doneImagePath TEXT
       },
     );
   }
+  // Insert laporan baru ke database
 
   Future<int> insertReport(ReportModel report) async {
     final database = await db;
     return await database.insert('reports', report.toMap());
   }
+  // Ambil seluruh laporan dari database
 
   Future<List<ReportModel>> getAllReports() async {
     final database = await db;
     final maps = await database.query('reports', orderBy: 'id DESC');
     return maps.map((m) => ReportModel.fromMap(m)).toList();
   }
-
+// Update laporan di database
   Future<int> updateReport(ReportModel report) async {
     final database = await db;
     return await database.update(
@@ -61,7 +67,7 @@ doneImagePath TEXT
       whereArgs: [report.id],
     );
   }
-
+// Hapus laporan dari database berdasarkan id
   Future<int> deleteReport(int id) async {
     final database = await db;
     return await database.delete('reports', where: 'id = ?', whereArgs: [id]);

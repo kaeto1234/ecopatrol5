@@ -1,8 +1,10 @@
+// Model laporan lingkungan
+// Merepresentasikan satu baris data di tabel reports
 class ReportModel {
   int? id;
   String title;
   String description;
-  String imagePath; // local path
+  String imagePath; // path ke gambar yang disimpan secara lokal
   double? latitude;
   double? longitude;
   String status; // 'pending' or 'done'
@@ -23,6 +25,8 @@ class ReportModel {
     this.doneImagePath,
   });
 
+  // Konversi object ke Map (untuk SQLite)
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -37,6 +41,7 @@ class ReportModel {
       'doneImagePath': doneImagePath,
     };
   }
+  // Konversi Map dari SQLite ke object
 
   factory ReportModel.fromMap(Map<String, dynamic> map) {
     return ReportModel(

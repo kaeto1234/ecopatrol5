@@ -16,7 +16,7 @@ dependencies:
   path: ^1.8.3
   shared_preferences: ^2.1.1
   image_picker: ^0.8.7+5
-  location: ^4.4.0
+  location: ^8.0.1
   intl: ^0.18.0
   sqflite_common_ffi: ^2.2.1
 
